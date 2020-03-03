@@ -33,7 +33,7 @@
   when: lv_create|succeeded
   register: xfs_format
 
-- name: Crea directory per mount postgresql data
+- name: Crea directory per mount postgresql dir
   file:
     path: "{{postgresql_dir}}"
     owner: postgres
@@ -51,3 +51,21 @@
     state: mounted
   when: dir_created |succeeded
   register: mounted
+
+- name: Crea directory per mount postgresql data
+  file:
+    path: "{{postgresql_data}}"
+    owner: postgres
+    group: postgres
+    state: directory
+  when: xfs_format|succeeded
+  register: dir_created 
+
+- name: Crea directory per mount postgresql archive
+  file:
+    path: "{{postgresql_arc}}"
+    owner: postgres
+    group: postgres
+    state: directory
+  when: xfs_format|succeeded
+  register: dir_created 
