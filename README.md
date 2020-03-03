@@ -1,4 +1,4 @@
-# ansible-pos-pgp-cluster
+# ansible-posqlpgpool-cluster
 # Prerequisiti AWS
 Assicurarsi che sulle macchine sia presente:
 
