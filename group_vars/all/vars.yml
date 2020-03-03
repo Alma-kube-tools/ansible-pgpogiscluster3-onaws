@@ -1,2 +1,2 @@
-postgresqlrelease: 11.1
-pgpoolrelease: 4.1.0
+postgresqlpackage: postgresql11
+pgpoolpackage: pgpool-II-pg11
