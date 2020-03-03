@@ -1,0 +1,53 @@
+- name: Create partition for LVM
+  parted:
+    device: "/dev/{{datadev_name}}"
+    number: 1
+    flags: [ lvm ]
+    state: present
+    part_start: 0%
+    part_end: 100%
+  register: lvm_format
+
+- name: Create volume group
+  lvg:
+    vg: vg_postgresql
+    pvs: "/dev/{{datadev_name}}1"
+    state: present
+  when: lvm_format|succeeded
+  register: vg_create
+
+- name: Create logical volume
+  lvol:
+    vg: vg_postgresql
+    lv: lv_postgresql
+    size: 100%VG
+    active: yes
+    state: present
+  when: vg_create|succeeded
+  register: lv_create
+
+- name: Format volume with XFS
+  filesystem: 
+    fstype: xfs 
+    dev: /dev/vg_postgresql/lv_postgresql
+  when: lv_create|succeeded
+  register: xfs_format
+
+- name: Crea directory per mount postgresql data
+  file:
+    path: "{{postgresql_dir}}"
+    owner: postgres
+    group: postgres
+    state: directory
+  when: xfs_format|succeeded
+  register: dir_created 
+   
+- name: Edit fstab and mount the XFS volume
+  mount:
+    name: "{{postgresql_dir}}"
+    src: /dev/vg_postgresql/lv_postgresql
+    fstype: xfs
+    opts: "noatime"
+    state: mounted
+  when: dir_created |succeeded
+  register: mounted
