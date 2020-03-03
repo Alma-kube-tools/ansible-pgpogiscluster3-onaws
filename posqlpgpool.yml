@@ -1,7 +1,6 @@
 ---
 - hosts: posqlpgpool_cluster
   roles:
-    - { role: posqlpgpool_repos, tags: [ 'setup', 'packages' ] }
     - { role: posqlpgpool_packages, tags: [ 'setup', 'packages' ] }
     - { role: posqlpgpool_filesystem, tags: [ 'setup'] }
     - { role: posqlpgpool_privs, tags: [ 'auth' ] }
