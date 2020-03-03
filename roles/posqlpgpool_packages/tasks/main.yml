@@ -27,4 +27,7 @@
     - {{ pgpoolpackage }}-devel.x86_64
     - {{ pgpoolpackage }}-extensions.x86_64
     - {{ pgpoolpackage }}-debuginfo.x86_64
-    
+
+- command: systemctl disable postgresql-11
+
+- command: systemctl disable pgpool-II-11
