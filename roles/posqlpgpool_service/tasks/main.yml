@@ -1,0 +1,6 @@
+---
+- name: Ensure Postgres is restarted
+  service: name=postgresql state=started
+
+- name: Ensure PgPool is restarted
+  service: name=pgpool state=started
