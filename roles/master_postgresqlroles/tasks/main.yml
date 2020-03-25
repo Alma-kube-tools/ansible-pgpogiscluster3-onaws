@@ -87,15 +87,15 @@
   become_user: postgres
   tags: prerequisite
 
-#- name: Create extension PostGIS
-#  postgresql_ext:
-#    name: postgis
-#    db: postgis
-#    port: 5433
-#    state: present
-#  become: true
-#  become_user: postgres
-#  tags: prerequisite
+- name: Create extension PostGIS
+  postgresql_ext:
+    name: postgis
+    db: postgis
+    port: 5433
+    state: present
+  become: true
+  become_user: postgres
+  tags: prerequisite
 
 - name: Make sure PostgreSQL is stopped and disabled
   systemd:

@@ -268,16 +268,6 @@
     mode: '0600'
     state: present
 
-#- name: Change sr_check_password in pgpool.conf
-#  lineinfile:
-#    path: /etc/pgpool-II/pgpool.conf
-#    regexp: 'sr_check_password'
-#    line: sr_check_password = 'pgpool'
-#    owner: postgres
-#    group: postgres
-#    mode: '0600'
-#    state: present
-
 - name: Change health_check_period in pgpool.conf
   replace:
     path: /etc/pgpool-II/pgpool.conf
@@ -304,15 +294,6 @@
     owner: postgres
     group: postgres
     mode: '0600'
-
-#- name: Change health_check_password in pgpool.conf
-#  replace:
-#    path: /etc/pgpool-II/pgpool.conf
-#    regexp: "health_check_password = ''"
-#    replace: health_check_password = 'pgpool'
-#    owner: postgres
-#    group: postgres
-#    mode: '0600'
 
 - name: Change health_check_max_retries in pgpool.conf
   replace:
@@ -353,16 +334,6 @@
     mode: '0600'
     state: present
 
-#- name: Change recovery_password in pgpool.conf
-#  lineinfile:
-#    path: /etc/pgpool-II/pgpool.conf
-#    regexp: 'recovery_password'
-#    line: recovery_password = 'postgres'
-#    owner: postgres
-#    group: postgres
-#    mode: '0600'
-#    state: present
-
 - name: Change recovery_1st_stage_command in pgpool.conf
   lineinfile:
     path: /etc/pgpool-II/pgpool.conf
@@ -383,25 +354,23 @@
     mode: '0600'
     state: present
 
-#- name: Change if_up_cmd in pgpool.conf
-#  lineinfile:
-#    path: /etc/pgpool-II/pgpool.conf
-#    regexp: 'if_up_cmd'
-#    line: if_up_cmd = '/usr/bin/sudo /sbin/ip addr add $_IP_$/24 dev ens5 label ens5:0'
-#    owner: postgres
-#    group: postgres
-#    mode: '0600'
-#    state: present
+- name: Change if_up_cmd in pgpool.conf 
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: "^if_up_cmd = '/usr/bin/sudo /sbin/ip addr add $_IP_$/24 dev eth0 label eth0:0'"
+    replace: "#if_up_cmd = '/usr/bin/sudo /sbin/ip addr add $_IP_$/24 dev eth0 label eth0:0'"
+    owner: postgres
+    group: postgres
+    mode: '0600'
 
-#- name: Change if_down_cmd in pgpool.conf
-#  lineinfile:
-#    path: /etc/pgpool-II/pgpool.conf
-#    regexp: 'if_down_cmd'
-#    line: if_down_cmd = '/usr/bin/sudo /sbin/ip addr del $_IP_$/24 dev ens5'
-#    owner: postgres
-#    group: postgres
-#    mode: '0600'
-#    state: present
+- name: Change if_down_cmd in pgpool.conf 
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: "^if_down_cmd = '/usr/bin/sudo /sbin/ip addr del $_IP_$/24 dev eth0'"
+    replace: "#if_down_cmd = '/usr/bin/sudo /sbin/ip addr del $_IP_$/24 dev eth0'"
+    owner: postgres
+    group: postgres
+    mode: '0600'
 
 - name: Change arping_cmd in pgpool.conf
   lineinfile:

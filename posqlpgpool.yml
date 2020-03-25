@@ -3,7 +3,7 @@
   become: yes
   roles:
     - { role: cluster_packages, tags: [ 'prerequisite' ] }
-#    - { role: cluster_postgis, tags: [ 'prerequisite' ] }
+    - { role: cluster_postgis, tags: [ 'prerequisite' ] }
     - { role: cluster_filesystem, tags: [ 'prerequisite' ] }
     - { role: cluster_authorizations, tags: [ 'prerequisite' ] }
     - { role: cluster_setting, tags: [ 'prerequisite' ] }
