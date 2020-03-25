@@ -13,6 +13,7 @@ On the Ansible server:
 
 * Download with git clone
 * Inside the inventory path insert the "key.pem" for access in SSH
+* Inside the inventory path, insert the awscliv2.zip package
 * Modify the hosts file of the ansible server by adding the ip of the hosts to reach and naming them as specified in posqlpgpool.hosts
 
 # Installation and initial configuration of the nodes
