@@ -1,0 +1,16 @@
+[master]
+pgpogis01 ansible_user=centos
+
+[st_slave]
+pgpogis02 ansible_user=centos
+
+[nd_slave]
+pgpogis03 ansible_user=centos
+
+[slave:children]
+st_slave
+nd_slave
+
+[cluster:children]
+master
+slave

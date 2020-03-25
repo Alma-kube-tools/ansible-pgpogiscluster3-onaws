@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  tasks:
+    - debug: var=datadev_name
+    - debug: var=postgresql_dir
+    - debug: var=postgresql_data
+    - debug: var=postgresql_arc
+    - debug: var=network
+    - debug: var=gateway
+    - debug: var=hostname1
+    - debug: var=hostname2
+    - debug: var=hostname3
+    - debug: var=ipnode1
+    - debug: var=ipnode2
+    - debug: var=ipnode3
+    - debug: var=ipvip
+    - debug: var=pri_net_int
+    - debug: var=sec_net_int
+    - debug: var=aws_netint_id
