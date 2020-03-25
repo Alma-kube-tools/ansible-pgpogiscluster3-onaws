@@ -1,6 +1,0 @@
-datadev_name: nvme1n1
-postgresqlpackage: postgresql11
-pgpoolpackage: pgpool-II-pg11
-postgresql_dir: "/postgresql"
-postgresql_data: "/postgresql/pg_data"
-postgresql_arc: "/postgresql/archive"
