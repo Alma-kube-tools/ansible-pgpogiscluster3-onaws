@@ -11,24 +11,6 @@
     state: present
   tags: prerequisite
 
-- name: Install dependencies for PostGIS
-  yum:
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - libdapserver.so.7
-    - libnetcdf.so.7
-    - libdap.so.17
-    - libCharLS.so.1
-    - hdf5
-    - libdapclient.so.6
-    - libfreexl.so.1
-    - libcfitsio.so.2
-    - libhdf5.so.8
-    - libgta.so.0
-    state: present
-  tags: prerequisite
-
 - name: Install PostGIS server packages
   yum:
     name: "{{ packages }}"
