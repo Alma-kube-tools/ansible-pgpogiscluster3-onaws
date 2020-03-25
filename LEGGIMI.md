@@ -13,6 +13,7 @@ Sul server Ansible:
 
 * Fare il download con git clone
 * All'interno dell'inventory path inserire la "chiave.pem" per l'accesso in SSH
+* All'interno dell'inventory path inserire il pacchetto awscliv2.zip
 * Modificare il file hosts del server ansible aggiungendo gli ip degli host da raggiungere e nominandoli come specificato in posqlpgpool.hosts
 
 # Installazione e configurazione iniziale dei nodi 
