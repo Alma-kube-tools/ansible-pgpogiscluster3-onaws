@@ -1,5 +1,5 @@
 # ansible-posqlpgpoolcl3-onAWS
-Delivery of a PostgreSQL+PgPool Cluster with 3 nodes on AWS
+Delivery of a PostgreSQL+PgPool+postGIS Cluster with 3 nodes on AWS
 
 # AWS prerequisites
 Make sure that the AWS environment has:
