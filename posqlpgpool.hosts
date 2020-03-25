@@ -1,2 +1,0 @@
-[posqlpgpool_cluster]
-tst-db[01:03] ansible_user=root
