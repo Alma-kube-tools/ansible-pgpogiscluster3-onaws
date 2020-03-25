@@ -1,5 +1,5 @@
 # ansible-posqlpgpoolcl3-onAWS
-Produzione di un cluster PostgreSQL + PgPool con 3 nodi su AWS
+Produzione di un cluster PostgreSQL + PgPool + postGIS con 3 nodi su AWS
 
 # Prerequisiti AWS
 Assicurarsi che sull'ambiente AWS sia presente:
