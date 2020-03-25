@@ -1,0 +1,105 @@
+---
+- name: Make sure PostgreSQL is started but disabled
+  systemd:
+    name: postgresql-11
+    enabled: no
+    state: started
+  tags: configuration
+
+- name: Create pgpool role
+  postgresql_user:
+    name: pgpool
+    password: pgpool
+    port: 5433
+    role_attr_flags: LOGIN
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Create repl role
+  postgresql_user:
+    name: repl
+    password: repl
+    port: 5433
+    role_attr_flags: REPLICATION,LOGIN
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Create postgres role
+  postgresql_user:
+    name: postgres
+    password: postgres
+    port: 5433
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Create postgis role
+  postgresql_user:
+    name: postgis
+    password: postgis
+    port: 5433
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Grant role pg_monitor to pgpool
+  postgresql_membership:
+    port: 5433
+    group: pg_monitor
+    target_role: pgpool
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Create extension pgpool_recovery
+  postgresql_ext:
+    port: 5433
+    name: pgpool_recovery
+    db: template1
+    state: present
+  become: true
+  become_user: postgres
+  tags: configuration
+
+- name: Create extension pgcrypto
+  postgresql_ext:
+    name: pgcrypto
+    db: postgres
+    port: 5433
+    state: present
+  become: true
+  become_user: postgres
+  tags: prerequisite
+
+- name: Create a new database with name "postgis"
+  postgresql_db:
+    port: 5433
+    name: postgis
+    owner: postgis
+  become: true
+  become_user: postgres
+  tags: prerequisite
+
+#- name: Create extension PostGIS
+#  postgresql_ext:
+#    name: postgis
+#    db: postgis
+#    port: 5433
+#    state: present
+#  become: true
+#  become_user: postgres
+#  tags: prerequisite
+
+- name: Make sure PostgreSQL is stopped and disabled
+  systemd:
+    name: postgresql-11
+    enabled: no
+    state: stopped
+  tags: configuration

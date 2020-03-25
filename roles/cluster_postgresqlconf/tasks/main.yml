@@ -1,0 +1,80 @@
+---
+- name: Change listener in postgresql.conf 
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#listen_addresses = 'localhost'"
+    replace: listen_addresses = '*'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change port in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#port = 5432"
+    replace: port = 5433
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change wal_level in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#wal_level = replica"
+    replace: wal_level = hot_standby
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change wal_log_hints in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#wal_log_hints = off"
+    replace: wal_log_hints = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change archive_mode in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#archive_mode = off"
+    replace: archive_mode = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change archive_command in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#archive_command = ''"
+    replace: archive_command = 'cp -i "%p" "/postgresql/archive/%f"'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change max_wal_senders in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#max_wal_senders = 10"
+    replace: max_wal_senders = 10
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration
+
+- name: Change hot_standby in postgresql.conf
+  replace:
+    path: /postgresql/pg_data/postgresql.conf
+    regexp: "^#hot_standby = on"
+    replace: hot_standby = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+  tags: configuration

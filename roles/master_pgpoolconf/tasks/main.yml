@@ -1,0 +1,130 @@
+---
+- name: Change wd_hostname in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'wd_hostname'
+    line: wd_hostname = '{{ hostname1 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_pgpool_hostname0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_pgpool_hostname0'
+    line: other_pgpool_hostname0 = '{{ hostname2 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_pgpool_port0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_pgpool_port0'
+    line: other_pgpool_port0 = 5432
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_wd_port0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_wd_port0'
+    line: other_wd_port0 = 9000
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_pgpool_hostname1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_pgpool_hostname1'
+    line: other_pgpool_hostname1 = '{{ hostname3 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_pgpool_port1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_pgpool_port1'
+    line: other_pgpool_port1 = 5432
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change other_wd_port1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'other_wd_port1'
+    line: other_wd_port1 = 9000
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_destination0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_destination0'
+    line: heartbeat_destination0 = '{{ hostname2 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_destination_port0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_destination_port0'
+    line: heartbeat_destination_port0 = 9694
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_device0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_device0'
+    line: heartbeat_device0 = ''
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_destination1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_destination1'
+    line: heartbeat_destination1 = '{{ hostname3 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_destination_port1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_destination_port1'
+    line: heartbeat_destination_port1 = 9694
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change heartbeat_device1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'heartbeat_device1'
+    line: heartbeat_device1 = ''
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present

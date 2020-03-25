@@ -1,0 +1,30 @@
+---
+- name: Change ExecStop in /usr/lib/systemd/system/pgpool.service
+  replace:
+    path: /usr/lib/systemd/system/pgpool.service
+    regexp: "ExecStop=/usr/bin/pgpool -f /etc/pgpool-II/pgpool.conf $STOP_OPTS stop"
+    replace: "ExecStop=/usr/bin/pgpool -f /etc/pgpool-II/pgpool.conf -m fast stop"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Change ExecReload in /usr/lib/systemd/system/pgpool.service
+  replace:
+    path: /usr/lib/systemd/system/pgpool.service
+    regexp: "ExecReload=/usr/bin/pgpool -f /etc/pgpool-II/pgpool.conf reload"
+    replace: "ExecReload=/bin/kill -HUP $MAINPID"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Insert KillMode entry in /usr/lib/systemd/system/pgpool.service
+  lineinfile:
+    path: /usr/lib/systemd/system/pgpool.service
+    insertafter: '^ExecReload'
+    line: 'KillMode=mixed'
+
+- name: Insert KillSignal entry in /usr/lib/systemd/system/pgpool.service
+  lineinfile:
+    path: /usr/lib/systemd/system/pgpool.service
+    insertafter: '^KillMode=mixed'
+    line: 'KillSignal=SIGINT'

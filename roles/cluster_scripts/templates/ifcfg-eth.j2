@@ -1,0 +1,12 @@
+DEVICE={{ sec_net_int }}
+BOOTPROTO="static"
+ONBOOT="no"
+TYPE="Ethernet"
+USERCTL="yes"
+#PEERDNS="yes"
+IPV6INIT="no"
+#PERSISTENT_DHCLIENT="1"
+IPADDR={{ ipvip }}
+NETMASK=255.255.255.224
+GETEWAY={{ gateway }}
+MTU=9001

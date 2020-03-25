@@ -1,0 +1,2 @@
+{{ network }} dev {{ pri_net_int }} src {{ ansible_ens5.ipv4.address }} table t1
+default via {{ gateway }} dev {{ pri_net_int }} table t1

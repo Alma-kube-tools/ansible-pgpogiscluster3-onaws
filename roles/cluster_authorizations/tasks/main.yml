@@ -1,0 +1,130 @@
+---
+- name: Add mappings to /etc/hosts
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {{ item.ip }} {{ item.name }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+  loop:
+    - { name: "{{ hostname1 }}", ip: "{{ ipnode1 }}" }
+    - { name: "{{ hostname2 }}", ip: "{{ ipnode2 }}" }
+    - { name: "{{ hostname3 }}", ip: "{{ ipnode3 }}" }
+
+- name: Set authorized key taken from file for root
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'cluster_key/pgpool.pem.pub') }}"
+
+- name: Set authorized key taken from file for postgres
+  authorized_key:
+    user: postgres
+    state: present
+    key: "{{ lookup('file', 'cluster_key/pgpool.pem.pub') }}"
+
+- name: Copy key for root, backing up the original if it differs from the copied version
+  copy:
+    src: /home/centos/ansible-posqlpgpoolcl3/cluster_key/pgpool.pem
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+
+- name: Copy key for postgres, backing up the original if it differs from the copied version
+  copy:
+    src: /home/centos/ansible-posqlpgpoolcl3/cluster_key/pgpool.pem
+    dest: /var/lib/pgsql/.ssh/id_rsa
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    backup: yes
+
+- name: Create file .pgpass
+  copy:
+    dest: /var/lib/pgsql/.pgpass
+    content: |
+      {{ ipnode1 }}:5433:replication:repl:repl
+      {{ ipnode2 }}:5433:replication:repl:repl
+      {{ ipnode3 }}:5433:replication:repl:repl
+      {{ ipnode1 }}:5433:postgres:postgres:postgres
+      {{ ipnode2 }}:5433:postgres:postgres:postgres
+      {{ ipnode3 }}:5433:postgres:postgres:postgres
+      {{ ipnode1 }}:5433:*:pgpool:pgpool
+      {{ ipnode2 }}:5433:*:pgpool:pgpool
+      {{ ipnode3 }}:5433:*:pgpool:pgpool
+      *:*:*:postgres:postgres
+      *:*:replication:repl:repl
+      *:*:*:pgpool:pgpool
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    backup: yes
+
+- name: Add postgres md5 code in pcp.conf
+  lineinfile:
+    path: /etc/pgpool-II/pcp.conf
+    line: postgres:e8a48653851e28c69d0506508fb27fc5
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Add pgpool md5 code in pcp.conf
+  lineinfile:
+    path: /etc/pgpool-II/pcp.conf
+    line: pgpool:ba777e4c2f15c11ea8ac3be7e0440aa0
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Add repl md5 code in pcp.conf
+  lineinfile:
+    path: /etc/pgpool-II/pcp.conf
+    line: repl:c3121723f31b44a9900cce919dd71ea3
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Create file pool_passwd in /etc/pgpool-II/pool_passwd
+  copy:
+    dest: /etc/pgpool-II/pool_passwd
+    content: |
+      postgres:postgres
+      pgpool:pgpool
+      repl:repl
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    backup: yes
+
+- name: Create file .pcppass for root
+  copy:
+    dest: /root/.pcppass
+    content: |
+      localhost:9898:pgpool:pgpool
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+
+- name: Create file .pcppass for postgres
+  copy:
+    dest: /var/lib/pgsql/.pcppass
+    content: |
+      localhost:9898:pgpool:pgpool
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    backup: yes
+
+- name: Add postgres in /etc/sudoers
+  lineinfile:
+    path: /etc/sudoers
+    line: "postgres        ALL=(ALL)       NOPASSWD: ALL"
+    owner: root
+    group: root
+    mode: '0440'
+    state: present

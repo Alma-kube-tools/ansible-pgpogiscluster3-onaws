@@ -1,0 +1,70 @@
+---
+- name: Change OPTS in sysconfig/pgpool
+  replace:
+    path: /etc/sysconfig/pgpool
+    regexp: 'OPTS=" -n'
+    replace: OPTS=" -D -n
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Create pgpool-II if it does not exist
+  file:
+    path: /var/log/pgpool-II
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: '0755'
+
+- name: Create file pgpool.log
+  file:
+    path: /var/log/pgpool-II/pgpool.log
+    state: touch
+    owner: postgres
+    group: postgres
+    mode: '0660'
+    modification_time: preserve
+    access_time: preserve
+
+- name: Change entry in /etc/rsyslog.conf
+  replace:
+    path: /etc/rsyslog.conf
+    regexp: '.info;mail.none;authpriv.none;cron.none                /var/log/messages'
+    replace: '.info;mail.none;authpriv.none;cron.none;LOCAL1.none    /var/log/messages'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Add entry in /etc/rsyslog.conf
+  lineinfile:
+    path: /etc/rsyslog.conf
+    regexp: 'LOCAL1.*'
+    insertafter: '.info;mail.none;authpriv.none;cron.none;LOCAL1.none    /var/log/messages'
+    line: 'LOCAL1.*                                                /var/log/pgpool-II/pgpool.log'
+    owner: root
+    group: root
+    mode: '0644'
+    state: present
+
+- name: Add entry in /etc/logrotate.d/syslog
+  lineinfile:
+    path: /etc/logrotate.d/syslog
+    regexp: '/var/log/pgpool-II'
+    insertafter: '^/var/log/spooler'
+    line: '/var/log/pgpool-II/pgpool.log'
+    owner: root
+    group: root
+    mode: '0644'
+    state: present
+
+- name: Insert KillMode entry in /usr/lib/systemd/system/pgpool.service
+  lineinfile:
+    path: /usr/lib/systemd/system/pgpool.service
+    insertafter: '^ExecReload'
+    line: 'KillMode=mixed'
+
+- name: restart service rsyslog, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: rsyslog

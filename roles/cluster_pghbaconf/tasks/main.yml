@@ -1,0 +1,20 @@
+---
+- name: Add host--all--all--samenet--md5 in pg_hba.conf
+  postgresql_pg_hba:
+    dest: /postgresql/pg_data/pg_hba.conf
+    contype: host
+    users: all
+    source: samenet
+    databases: all
+    method: md5
+    state: present
+
+- name: Add host--replication--all--samenet--md5 in pg_hba.conf
+  postgresql_pg_hba:
+    dest: /postgresql/pg_data/pg_hba.conf
+    contype: host
+    users: all
+    source: samenet
+    databases: replication
+    method: md5
+    state: present

@@ -1,0 +1,53 @@
+---
+- name: Make sure PostgreSQL is stopped and disabled
+  systemd:
+    name: postgresql-11
+    enabled: no
+    state: stopped
+  tags: prerequisite
+
+- name: Make sure PgPool-II is stopped and disabled
+  systemd:
+    name: pgpool
+    enabled: no
+    state: stopped
+  tags: prerequisite
+
+- name: Ensure SELinux is set to disabled mode
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: SELINUX=disabled
+  tags: prerequisite
+
+- name: Change variable for postgresql-11.service
+  lineinfile:
+    path: /usr/lib/systemd/system/postgresql-11.service
+    regexp: '^Environment=PGDATA='
+    line: Environment=PGDATA=/postgresql/pg_data
+  tags: prerequisite
+
+- name: Create file post.sh
+  copy:
+    dest: /etc/profile.d/post.sh
+    content: |
+      export PATH=$PATH:/usr/pgsql-11/:/usr/pgsql-11/bin:/usr/pgsql-11/lib:/usr/pgsql-11/
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Create file aws.sh
+  copy:
+    dest: /etc/profile.d/aws.sh
+    content: |
+      export PATH=$PATH:/usr/local/bin
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Reloading daemons
+  systemd:
+    daemon_reload: yes
+  tags: prerequisite

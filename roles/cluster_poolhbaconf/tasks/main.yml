@@ -1,0 +1,30 @@
+---
+- name: Add host--all--pgpool--internet--md5 in pool_hba.conf
+  postgresql_pg_hba:
+    dest: /etc/pgpool-II/pool_hba.conf
+    contype: host
+    users: pgpool
+    source: 0.0.0.0/0
+    databases: all
+    method: md5
+    state: present
+
+- name: Add host--all--postgres--internet--md5 in pool_hba.conf
+  postgresql_pg_hba:
+    dest: /etc/pgpool-II/pool_hba.conf
+    contype: host
+    users: postgres
+    source: 0.0.0.0/0
+    databases: all
+    method: md5
+    state: present
+
+- name: Add host--all--repl--internet--md5 in pool_hba.conf
+  postgresql_pg_hba:
+    dest: /etc/pgpool-II/pool_hba.conf
+    contype: host
+    users: repl
+    source: 0.0.0.0/0
+    databases: all
+    method: md5
+    state: present

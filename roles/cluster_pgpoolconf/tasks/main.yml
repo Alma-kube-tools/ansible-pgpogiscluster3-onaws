@@ -1,0 +1,454 @@
+---
+- name: Change listener in pgpool.conf
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: "listen_addresses = 'localhost'"
+    replace: listen_addresses = '*'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+- name: Change port in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'port = 9999'
+    line: port = 5432
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_hostname0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_hostname0'
+    line: backend_hostname0 = '{{ hostname1 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_port0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_port0'
+    line: backend_port0 = 5433
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_data_directory0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_data_directory0'
+    line: backend_data_directory0 = '/postgresql/pg_data'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_application_name0 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_application_name0'
+    line: backend_application_name0 = '{{ hostname1 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_hostname1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_hostname1'
+    line: backend_hostname1 = '{{ hostname2 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_port1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_port1'
+    line: backend_port1 = 5433
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_weight1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_weight1'
+    line: backend_weight1 = 1
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_data_directory1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_data_directory1'
+    line: backend_data_directory1 = '/postgresql/pg_data'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_flag1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_flag1'
+    line: backend_flag1 = 'ALLOW_TO_FAILOVER'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_application_name1 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_application_name1'
+    line: backend_application_name1 = '{{ hostname2 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_hostname2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_hostname2'
+    line: backend_hostname2 = '{{ hostname3 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_port2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_port2'
+    line: backend_port2 = 5433
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_weight2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_weight2'
+    line: backend_weight2 = 1
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_data_directory2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_data_directory2'
+    line: backend_data_directory2 = '/postgresql/pg_data'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_flag2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_flag2'
+    line: backend_flag2 = 'ALLOW_TO_FAILOVER'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change backend_application_name2 in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'backend_application_name2'
+    line: backend_application_name2 = '{{ hostname3 }}'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change enable_pool_hba in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'enable_pool_hba'
+    line: enable_pool_hba = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change max_pool in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'max_pool'
+    line: max_pool = 10
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change pid_file_name in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'pid_file_name'
+    line: pid_file_name = '/var/run/pgpool/pgpool.pid'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change logdir in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'logdir'
+    line: logdir = '/var/log/pgpool-II/'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change syslog_facility in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'syslog_facility'
+    line: syslog_facility = 'LOCAL1'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change log_destination in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'log_destination'
+    line: log_destination = 'syslog'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change master_slave_mode in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'master_slave_mode'
+    line: master_slave_mode = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change sr_check_period in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'sr_check_period'
+    line: sr_check_period = 5
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change sr_check_user in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'sr_check_user'
+    line: sr_check_user = 'pgpool'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+#- name: Change sr_check_password in pgpool.conf
+#  lineinfile:
+#    path: /etc/pgpool-II/pgpool.conf
+#    regexp: 'sr_check_password'
+#    line: sr_check_password = 'pgpool'
+#    owner: postgres
+#    group: postgres
+#    mode: '0600'
+#    state: present
+
+- name: Change health_check_period in pgpool.conf
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'health_check_period = 0'
+    replace: health_check_period = 5
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+- name: Change health_check_timeout in pgpool.conf
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'health_check_timeout = 20'
+    replace: health_check_timeout = 30
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+- name: Change health_check_user in pgpool.conf
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: "health_check_user = 'nobody'"
+    replace: health_check_user = 'pgpool'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+#- name: Change health_check_password in pgpool.conf
+#  replace:
+#    path: /etc/pgpool-II/pgpool.conf
+#    regexp: "health_check_password = ''"
+#    replace: health_check_password = 'pgpool'
+#    owner: postgres
+#    group: postgres
+#    mode: '0600'
+
+- name: Change health_check_max_retries in pgpool.conf
+  replace:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'health_check_max_retries = 0'
+    replace: health_check_max_retries = 3
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+- name: Change failover_command in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'failover_command'
+    line: failover_command = '/etc/pgpool-II/failover.sh %d %h %p %D %m %H %M %P %r %R %N %S'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change follow_master_command in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'follow_master_command'
+    line: follow_master_command = '/etc/pgpool-II/follow_master.sh %d %h %p %D %m %H %M %P %r %R'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change recovery_user in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'recovery_user'
+    line: recovery_user = 'postgres'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+#- name: Change recovery_password in pgpool.conf
+#  lineinfile:
+#    path: /etc/pgpool-II/pgpool.conf
+#    regexp: 'recovery_password'
+#    line: recovery_password = 'postgres'
+#    owner: postgres
+#    group: postgres
+#    mode: '0600'
+#    state: present
+
+- name: Change recovery_1st_stage_command in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'recovery_1st_stage_command'
+    line: recovery_1st_stage_command = 'recovery_1st_stage_command'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change use_watchdog in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'use_watchdog'
+    line: use_watchdog = on
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+#- name: Change if_up_cmd in pgpool.conf
+#  lineinfile:
+#    path: /etc/pgpool-II/pgpool.conf
+#    regexp: 'if_up_cmd'
+#    line: if_up_cmd = '/usr/bin/sudo /sbin/ip addr add $_IP_$/24 dev ens5 label ens5:0'
+#    owner: postgres
+#    group: postgres
+#    mode: '0600'
+#    state: present
+
+#- name: Change if_down_cmd in pgpool.conf
+#  lineinfile:
+#    path: /etc/pgpool-II/pgpool.conf
+#    regexp: 'if_down_cmd'
+#    line: if_down_cmd = '/usr/bin/sudo /sbin/ip addr del $_IP_$/24 dev ens5'
+#    owner: postgres
+#    group: postgres
+#    mode: '0600'
+#    state: present
+
+- name: Change arping_cmd in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'arping_cmd'
+    line: arping_cmd = '/usr/bin/sudo /usr/sbin/arping -U $_IP_$ -w 1 -I ens5'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change delegate_IP in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'delegate_IP'
+    line: delegate_IP = ''
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change wd_escalation_command in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'wd_escalation_command'
+    line: wd_escalation_command = '/usr/local/bin/aws-escalation.sh'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change wd_de_escalation_command in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: 'wd_de_escalation_command'
+    line: wd_de_escalation_command = '/usr/local/bin/aws-de-escalation.sh'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
+
+- name: Change pool_passwd in pgpool.conf
+  lineinfile:
+    path: /etc/pgpool-II/pgpool.conf
+    regexp: "pool_passwd = 'pool_passwd'"
+    line: pool_passwd = '/etc/pgpool-II/pool_passwd'
+    owner: postgres
+    group: postgres
+    mode: '0600'
+    state: present
