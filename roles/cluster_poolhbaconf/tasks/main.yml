@@ -28,3 +28,13 @@
     databases: all
     method: md5
     state: present
+
+- name: Add host--postgis--postgis--internet--trust in pool_hba.conf
+  postgresql_pg_hba:
+    dest: /etc/pgpool-II/pool_hba.conf
+    contype: host
+    users: postgis
+    source: 0.0.0.0/0
+    databases: postgis
+    method: trust
+    state: present

@@ -18,3 +18,13 @@
     databases: replication
     method: md5
     state: present
+
+- name: Add host--postgis--postgis--internet--trust in pg_hba.conf
+  postgresql_pg_hba:
+    dest: /postgresql/pg_data/pg_hba.conf
+    contype: host
+    users: postgis
+    source: 0.0.0.0/0
+    databases: postgis
+    method: trust
+    state: present

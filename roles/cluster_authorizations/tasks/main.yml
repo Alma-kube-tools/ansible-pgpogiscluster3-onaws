@@ -95,6 +95,7 @@
       postgres:postgres
       pgpool:pgpool
       repl:repl
+      postgis:postgis
     owner: postgres
     group: postgres
     mode: '0600'
