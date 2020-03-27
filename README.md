@@ -18,7 +18,7 @@ On the Ansible server:
 
 # Installation and initial configuration of the nodes
 
-* check the variable in group_vars / all / vars.yml
+* check the variable in group_vars/all.yml
 * if necessary change the values of the variables according to your environment
 
 launch the ansible playbook with the command:
